@@ -122,13 +122,13 @@ $(".level").bind("keyup change", function () {
 $(".nature").bind("keyup change", function () {
 	calcStats($(this).closest(".poke-info"));
 });
-$(".hp .base, .hp .evs, .hp .ivs").bind("keyup change", function () {
+$(".hp .base, .hp .evs, .hp .ivs, .hp .statexp").bind("keyup change", function () {
 	calcHP($(this).closest(".poke-info"));
 });
-$(".at .base, .at .evs, .at .ivs").bind("keyup change", function () {
+$(".at .base, .at .evs, .at .ivs, .at .statexp").bind("keyup change", function () {
 	calcStat($(this).closest(".poke-info"), 'at');
 });
-$(".df .base, .df .evs, .df .ivs").bind("keyup change", function () {
+$(".df .base, .df .evs, .df .ivs, .df .statexp").bind("keyup change", function () {
 	calcStat($(this).closest(".poke-info"), 'df');
 });
 $(".sa .base, .sa .evs, .sa .ivs").bind("keyup change", function () {
@@ -137,10 +137,10 @@ $(".sa .base, .sa .evs, .sa .ivs").bind("keyup change", function () {
 $(".sd .base, .sd .evs, .sd .ivs").bind("keyup change", function () {
 	calcStat($(this).closest(".poke-info"), 'sd');
 });
-$(".sp .base, .sp .evs, .sp .ivs").bind("keyup change", function () {
+$(".sp .base, .sp .evs, .sp .ivs, .sp .statexp").bind("keyup change", function () {
 	calcStat($(this).closest(".poke-info"), 'sp');
 });
-$(".sl .base").keyup(function () {
+$(".sl .base, .sl .statexp").keyup(function () {
 	calcStat($(this).closest(".poke-info"), 'sl');
 });
 $(".at .dvs").keyup(function () {
@@ -1152,7 +1152,7 @@ function calcStat(poke, StatID) {
 	var nature, ivs, evs;
 	if (gen < 3) {
 		ivs = ~~stat.find(".dvs").val() * 2;
-		evs = 252;
+		evs = ~~stat.find(".statexp").val();
 	} else {
 		ivs = ~~stat.find(".ivs").val();
 		evs = ~~stat.find(".evs").val();

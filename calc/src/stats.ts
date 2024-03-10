@@ -117,7 +117,7 @@ export const Stats = new (class {
     nature?: string
   ) {
     if (gen.num < 1 || gen.num > 9) throw new Error(`Invalid generation ${gen.num}`);
-    if (gen.num < 3) return this.calcStatRBY(stat, base, iv, level);
+    if (gen.num < 3) return this.calcStatRBY(stat, base, iv, ev, level);
     return this.calcStatADV(gen.natures, stat, base, iv, ev, level, nature);
   }
 
@@ -153,15 +153,16 @@ export const Stats = new (class {
     }
   }
 
-  calcStatRBY(stat: StatID, base: number, iv: number, level: number) {
-    return this.calcStatRBYFromDV(stat, base, this.IVToDV(iv), level);
+  calcStatRBY(stat: StatID, base: number, iv: number, statexp: number, level: number) {
+    return this.calcStatRBYFromDV(stat, base, this.IVToDV(iv), statexp, level);
   }
 
-  calcStatRBYFromDV(stat: StatID, base: number, dv: number, level: number) {
+  calcStatRBYFromDV(stat: StatID, base: number, dv: number, statexp: number, level: number) {
+    let sqrtStatexp = Math.min(Math.floor(Math.ceil(Math.sqrt(statexp))/4), 63);
     if (stat === 'hp') {
-      return Math.floor((((base + dv) * 2 + 63) * level) / 100) + level + 10;
+      return Math.floor((((base + dv) * 2 + sqrtStatexp) * level) / 100) + level + 10;
     } else {
-      return Math.floor((((base + dv) * 2 + 63) * level) / 100) + 5;
+      return Math.floor((((base + dv) * 2 + sqrtStatexp) * level) / 100) + 5;
     }
   }
 
